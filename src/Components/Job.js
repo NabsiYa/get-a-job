@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Job({ id, organization, title, work, link }) {
+function Job({ id, organization, profession, task, address, link }) {
 
     const [state, setState] = useState(false);
 
@@ -9,15 +9,14 @@ function Job({ id, organization, title, work, link }) {
     }
 
     return (
-        <div>
-            <ul key={id} style={ state ? {textDecoration: "line-through"} : {} }>
-                <li>Organisaatio - {organization}</li>
-                <li>Ala - {title}</li>
-                <li>Työtehtävä - {work}</li>
-                <li><a style={{ textDecoration: 'none' }} href={link}>Linkki</a></li>
-                <li><input type="checkbox" onChange={changeState}/> Muista</li>
-            </ul>
-        </div>
+        <tr style={ state ? {textDecoration: "line-through"} : {} }>
+            <td><a style={{ textDecoration: 'none' }} href={link}>{id}</a></td>
+            <td>{organization}</td>
+            <td>{profession}</td>
+            <td>{task}</td>
+            <td>{address}</td>
+            <td><input type="checkbox" onChange={changeState}/></td>
+        </tr>
     );
 }
 

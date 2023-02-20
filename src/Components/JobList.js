@@ -1,4 +1,9 @@
 import { Component } from "react";
+
+import Table from 'react-bootstrap/Table';
+import Alert from 'react-bootstrap/Alert';
+
+// Import internal Component
 import Job from "./Job";
 
 class JobList extends Component {
@@ -11,8 +16,9 @@ class JobList extends Component {
         };
     }
 
-    getJobs() {
-        fetch('http://gis.vantaa.fi/rest/tyopaikat/v1/kaikki')
+    componentDidMount() {
+        // get jobs once the site loads.
+        fetch('http://gis.vantaa.fi/rest/tyopaikat/v1/kaikki') // TODO: in future we will get that data from a local database for now we'll use publicly available data.
             .then(response => response.json())
             .then(json => {
                 this.setState({ jobs_non_filtered: json });
@@ -20,33 +26,48 @@ class JobList extends Component {
             });
     }
 
-    componentDidMount() {
-        // get jobs once the site loads.
-        this.getJobs();
-    }
-
     componentDidUpdate(PrevProps, PrevState) {
 
+        // Without this the application would have weird behaviour which would end up breaking the application.
         if (PrevProps.query === this.props.query) return;
 
         if (this.props.query.length !== 0)
         {
-            const filtered = this.state.jobs_non_filtered.filter((job) => { return job.tyotehtava.toLowerCase().indexOf(this.props.query.toLowerCase()) !== -1; });
+            const filtered = this.state.jobs_non_filtered.filter((job) =>
+            {
+                return job.tyotehtava.toLowerCase().indexOf(this.props.query.toLowerCase()) !== -1;
+            });
+
             this.setState({ jobs: filtered });
-        } else {
+        }
+        else
+        {
             this.setState({ jobs: this.state.jobs_non_filtered });
         }
     }
 
+    // Code below needs some refactoring...
     render() {
         return (
             <div>
-                <h1>{this.props.query.length == 0 ? "" : "Hakusana on " + this.props.query}</h1>
-                { this.state.jobs.map((job) => { return (
-                    <div>
-                        <Job id={job.id} organization={job.organisaatio} title={job.ammattiala} work={job.tyotehtava} link={job.linkki}/>
-                    </div>
-                ) }) }
+                <Alert variant="info">
+                    {this.props.query.length == 0 ? `No query specified showing all ${this.state.jobs_non_filtered.length} results.` : `Found ${this.state.jobs.length} jobs with the query ${this.props.query}.`}
+                </Alert>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Organization</th>
+                            <th>Profession</th>
+                            <th>Task</th>
+                            <th>Address</th>
+                            <th>Checked</th>
+                        </tr>
+                        { this.state.jobs.map((job) => { return (
+                            <Job id={job.id} organization={job.organisaatio} profession={job.ammattiala} task={job.tyotehtava} address={job.osoite} link={job.linkki}/>
+                        ) }) }
+                    </thead>
+                </Table>
             </div>
         )
     }
