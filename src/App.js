@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { useRef, useState } from 'react';
+import JobList from './Components/JobList';
 
 function App() {
+
+  const inputRef = useRef(null);
+  const [searchQuery, setQuery] = useState(""); // none by default.
+
+  const updateQuery = () => {
+    setQuery(inputRef.current.value);
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input ref={inputRef} type="text" onChange={updateQuery}/>
+      <JobList query={searchQuery}/>
     </div>
   );
 }
