@@ -50,7 +50,7 @@ class JobList extends Component {
         return (
             <div>
                 <Alert variant="info">
-                    {this.props.query.length == 0 ? `No query specified showing all ${this.state.jobs_non_filtered.length} results.` : `Found ${this.state.jobs.length} jobs with the query ${this.props.query}.`}
+                    {this.props.query.length === 0 ? `No query specified showing all ${this.state.jobs_non_filtered.length} results.` : `Found ${this.state.jobs.length} jobs with the query ${this.props.query}.`}
                 </Alert>
                 <Table striped bordered hover>
                     <thead>
