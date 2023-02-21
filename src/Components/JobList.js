@@ -35,7 +35,25 @@ class JobList extends Component {
         {
             const filtered = this.state.jobs_non_filtered.filter((job) =>
             {
-                return job.tyotehtava.toLowerCase().indexOf(this.props.query.toLowerCase()) !== -1;
+                let result = "";
+                switch (this.props.filter)
+                {
+                    case "0":
+                        result = job.organisaatio.toLowerCase().indexOf(this.props.query.toLowerCase()) !== -1;
+                        break;
+                    case "1":
+                        result = job.ammattiala.toLowerCase().indexOf(this.props.query.toLowerCase()) !== -1;
+                        break;
+                    case "2":
+                        result = job.tyotehtava.toLowerCase().indexOf(this.props.query.toLowerCase()) !== -1;
+                        break;
+                    case "3":
+                        result = job.osoite.toLowerCase().indexOf(this.props.query.toLowerCase()) !== -1;
+                        break;
+                    default:
+                        break; // NONE
+                }
+                return result;
             });
 
             this.setState({ jobs: filtered });
