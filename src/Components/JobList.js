@@ -29,7 +29,7 @@ class JobList extends Component {
     componentDidUpdate(PrevProps, PrevState) {
 
         // Without this the application would have weird behaviour which would end up breaking the application.
-        if (PrevProps.query === this.props.query) return;
+        if (PrevProps.query === this.props.query && PrevProps.filter === this.props.filter) return;
 
         if (this.props.query.length !== 0)
         {

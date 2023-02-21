@@ -29,7 +29,7 @@ function App() {
             <Form.Label>Query</Form.Label>
             <Form.Control ref={inputRef} type="text" onChange={updateQuery} placeholder="Enter the task here..." />
             <Form.Label>Filter</Form.Label>
-            <Form.Select aria-label="Default select example" ref={searchRef} onChange={updateFilter}>
+            <Form.Select aria-label="Filter" ref={searchRef} onChange={updateFilter}>
                 <option value="0">Organization</option>
                 <option value="1">Profession</option>
                 <option value="2">Task</option>
