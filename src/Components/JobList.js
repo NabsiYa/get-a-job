@@ -46,7 +46,6 @@ class JobList extends Component {
         }
     }
 
-    // Code below needs some refactoring...
     render() {
         return (
             <div>
@@ -63,9 +62,14 @@ class JobList extends Component {
                             <th>Address</th>
                             <th>Checked</th>
                         </tr>
-                        { this.state.jobs.map((job) => { return (
-                            <Job id={job.id} organization={job.organisaatio} profession={job.ammattiala} task={job.tyotehtava} address={job.osoite} link={job.linkki}/>
-                        ) }) }
+                        {
+                            this.state.jobs.map((job) =>
+                            {
+                                return (
+                                    <Job id={job.id} organization={job.organisaatio} profession={job.ammattiala} task={job.tyotehtava} address={job.osoite} link={job.linkki}/>
+                                )
+                            })
+                        }
                     </thead>
                 </Table>
             </div>
