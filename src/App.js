@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Stack from 'react-bootstrap/Stack';
+import Form from 'react-bootstrap/Form';
 
 // import our internal Component
 import JobList from './Components/JobList';
@@ -18,14 +19,10 @@ function App() {
   return (
     <Container fluid="md">
         <Stack gap={3}>
-            <h1>Please write the job title in the box below to get more accurate results.</h1>
-            <div>
-                <label>
-                    Query <input ref={inputRef} type="text" onChange={updateQuery}/>
-                </label>
-            </div>
+            <Form.Label>Query</Form.Label>
+            <Form.Control ref={inputRef} type="text" onChange={updateQuery} placeholder="Enter the task here..." />
             <JobList query={searchQuery}/>
-            <h1 style={{ textAlign: 'center' }}>Made by Nabsi - <a style={{ textDecoration: 'none' }} href="https://github.com/NabsiYa/">Github</a></h1>
+            <Form.Text style={{ textAlign: 'center' }}>Made by <a style={{ textDecoration: 'none' }} href="https://github.com/NabsiYa/">Nabsi</a></Form.Text>
         </Stack>
     </Container>
   );
